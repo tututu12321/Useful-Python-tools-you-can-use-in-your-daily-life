@@ -1,20 +1,22 @@
-
 # 必要なライブラリをインポート
-from sympy import symbols
-from sympy import Eq
+from sympy import symbols, Eq
 import matplotlib.pyplot as plt
 
 # 数式の定義
-C, Vin, Vdd = symbols('C V_in V_dd')
-Qs_expr = 8 * C * (Vin - Vdd / 2) + 8 * C * (Vin - Vdd / 2)
-equation = Eq(symbols('Q_s'), Qs_expr)
-
-# LaTeXの設定
-latex_eq = r"$" + r"Q_s = 8C \left( V_{in} - \frac{V_{dd}}{2} \right) + 8C \left( V_{in} - \frac{V_{dd}}{2} \right) \quad (1)$"
+C, Vin, Vdd, Vx, Vout = symbols('C V_in V_dd V_x V_out')
+Qs_expr = r"$Q_s = 8C \left( V_{in} - \frac{V_{dd}}{2} \right) + 8C \left( V_{in} - \frac{V_{dd}}{2} \right) \quad (1)$"
+Qc_expr = r"$Q_c = 8C \left( V_{dd} - V_x \right) + 8C \left( 0 - V_x \right) \quad (2)$"
+Vx_expr = r"$Q_s = Q_c \Rightarrow V_x = V_{dd} - V_{in} \quad (3)$"
+Vout_expr1 = r"$V_x \geq \frac{V_{dd}}{2}, \; V_{out} = 0 \quad (4)$"
+Vout_expr2 = r"$V_x < \frac{V_{dd}}{2}, \; V_{out} = V_{dd} \quad (5)$"
 
 # 画像として出力
-fig, ax = plt.subplots()
-ax.text(0.5, 0.5, latex_eq, fontsize=20, ha='center')
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.text(0.5, 0.8, Qs_expr, fontsize=15, ha='center')
+ax.text(0.5, 0.7, Qc_expr, fontsize=15, ha='center')
+ax.text(0.5, 0.6, Vx_expr, fontsize=15, ha='center')
+ax.text(0.5, 0.5, Vout_expr1, fontsize=15, ha='center')
+ax.text(0.5, 0.4, Vout_expr2, fontsize=15, ha='center')
 ax.axis('off')
-plt.savefig("equation_output.png", dpi=300, bbox_inches='tight')
+plt.savefig("equation_output_fixed.png", dpi=300, bbox_inches='tight')
 plt.show()
