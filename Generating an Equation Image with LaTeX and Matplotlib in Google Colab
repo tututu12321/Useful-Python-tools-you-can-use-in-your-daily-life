@@ -1,0 +1,20 @@
+
+# 必要なライブラリをインポート
+from sympy import symbols
+from sympy import Eq
+import matplotlib.pyplot as plt
+
+# 数式の定義
+C, Vin, Vdd = symbols('C V_in V_dd')
+Qs_expr = 8 * C * (Vin - Vdd / 2) + 8 * C * (Vin - Vdd / 2)
+equation = Eq(symbols('Q_s'), Qs_expr)
+
+# LaTeXの設定
+latex_eq = r"$" + r"Q_s = 8C \left( V_{in} - \frac{V_{dd}}{2} \right) + 8C \left( V_{in} - \frac{V_{dd}}{2} \right) \quad (1)$"
+
+# 画像として出力
+fig, ax = plt.subplots()
+ax.text(0.5, 0.5, latex_eq, fontsize=20, ha='center')
+ax.axis('off')
+plt.savefig("equation_output.png", dpi=300, bbox_inches='tight')
+plt.show()
